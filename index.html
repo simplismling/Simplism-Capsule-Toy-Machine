@@ -1,0 +1,2093 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simplism 簡單保養 - 老闆生日慶限定扭蛋活動</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;500&display=swap');
+        
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            background: #e8f6fd;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 20px;
+            position: relative;
+            color: #4c5358;
+        }
+        
+        .content-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            width: 100%;
+            max-width: 800px;
+            padding-top: 30px;
+        }
+        
+        .background-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        
+        .star {
+            position: absolute;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='%23FFD700'%3E%3Cpath d='M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z'/%3E%3C/svg%3E");
+            background-size: contain;
+            background-repeat: no-repeat;
+            opacity: 0.7;
+            z-index: 1;
+            animation: twinkle 3s infinite;
+        }
+        
+        .bubble {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.1));
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            animation: float 8s infinite ease-in-out;
+        }
+        
+        .sparkle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background-color: white;
+            transform: rotate(45deg);
+            animation: sparkle 4s infinite;
+        }
+        
+        .sparkle::before, .sparkle::after {
+            content: '';
+            position: absolute;
+            background-color: white;
+        }
+        
+        .sparkle::before {
+            width: 100%;
+            height: 2px;
+            top: 2px;
+            left: 0;
+        }
+        
+        .sparkle::after {
+            width: 2px;
+            height: 100%;
+            top: 0;
+            left: 2px;
+        }
+        
+        .ray {
+            position: absolute;
+            width: 2px;
+            height: 40px;
+            background: linear-gradient(to top, transparent, rgba(255, 215, 0, 0.6));
+            transform-origin: bottom center;
+            animation: ray-rotate 20s linear infinite;
+        }
+        
+        @keyframes twinkle {
+            0% { opacity: 0.3; transform: scale(0.8); }
+            50% { opacity: 0.9; transform: scale(1.1); }
+            100% { opacity: 0.3; transform: scale(0.8); }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); }
+            25% { transform: translateY(-20px) translateX(10px); }
+            50% { transform: translateY(-10px) translateX(-10px); }
+            75% { transform: translateY(-30px) translateX(5px); }
+        }
+        
+        @keyframes sparkle {
+            0%, 100% { opacity: 0.2; transform: scale(0.8) rotate(45deg); }
+            50% { opacity: 1; transform: scale(1.2) rotate(45deg); }
+        }
+        
+        @keyframes ray-rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .title-text {
+            font-family: 'Gen Ryu Min 2', 'Noto Serif TC', serif;
+            font-size: 45pt;
+            line-height: 1.2;
+            font-weight: 500;
+            text-shadow: 
+                -1px -1px 0 white,  
+                1px -1px 0 white,
+                -1px 1px 0 white,
+                1px 1px 0 white;
+            filter: drop-shadow(0px 3px 3px rgba(0, 0, 0, 0.2));
+            margin-top: 40px; /* Added top spacing */
+            margin-bottom: 60px;
+            position: relative;
+            z-index: 5;
+            color: #7c878e; /* Updated color as requested */
+            padding: 20px 0; /* Added vertical padding */
+        }
+        
+        .machine {
+            position: relative;
+            width: 360px;
+            height: 520px;
+            background-color: #ff3333;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            overflow: visible;
+            z-index: 10;
+            margin-bottom: 30px;
+            margin-top: 20px;
+            transition: transform 0.2s;
+        }
+        
+        .machine-top {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            height: 80px;
+            background-color: #cc0000;
+            border-radius: 20px 20px 0 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .brand-logo {
+            width: 140px;
+            height: 140px;
+            background-color: white;
+            border-radius: 50%;
+            border: 5px solid #0084D4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #0084D4;
+            font-weight: bold;
+            font-size: 20px;
+            position: absolute;
+            top: -40px;
+            z-index: 20;
+            text-align: center;
+            line-height: 1.3;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .machine-display {
+            position: absolute;
+            top: 100px;
+            left: 30px;
+            width: 300px;
+            height: 250px;
+            background-color: rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            border: 5px solid #cc0000;
+            overflow: hidden;
+        }
+        
+        /* Glass reflection effect */
+        .glass-reflection {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 50%, rgba(255,255,255,0.1) 100%);
+            pointer-events: none;
+            z-index: 5;
+            opacity: 0.5;
+        }
+        
+        /* Horizontal reflection strip */
+        .reflection-strip {
+            position: absolute;
+            top: 30%;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: rgba(255, 255, 255, 0.6);
+            transform: rotate(-5deg);
+            z-index: 6;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .capsule-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            perspective: 1000px;
+            transform-style: preserve-3d;
+        }
+        
+        .machine-bottom {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 160px;
+            background-color: #cc0000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        /* Updated outlet with collection tray */
+        .outlet-assembly {
+            position: relative;
+            width: 140px;
+            height: 80px;
+            margin-top: 10px;
+        }
+        
+        .outlet {
+            width: 120px;
+            height: 40px;
+            background-color: #333;
+            border-radius: 10px 10px 0 0;
+            position: absolute;
+            top: 0;
+            left: 10px;
+        }
+        
+        .outlet-hole {
+            width: 100px;
+            height: 30px;
+            background-color: #111;
+            border-radius: 5px;
+            position: absolute;
+            bottom: 0;
+            left: 10px;
+            overflow: hidden;
+        }
+        
+        /* Collection tray */
+        .collection-tray {
+            width: 140px;
+            height: 30px;
+            background-color: #444;
+            border-radius: 0 0 15px 15px;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            box-shadow: inset 0 5px 10px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+        }
+        
+        .tray-bottom {
+            width: 120px;
+            height: 20px;
+            background-color: #333;
+            border-radius: 0 0 10px 10px;
+            position: absolute;
+            bottom: 0;
+            left: 10px;
+        }
+        
+        /* Redesigned handle moved 1.5cm more to the right (total 3cm/30px from original) */
+        .handle {
+            position: absolute;
+            right: 10px; /* Moved 15px more to the right (from 25px to 10px) */
+            bottom: 60px;
+            width: 80px;
+            height: 80px;
+            cursor: pointer;
+            transform-origin: center;
+            transition: transform 0.3s;
+        }
+        
+        .handle-base {
+            position: absolute;
+            width: 70px;
+            height: 70px;
+            background: radial-gradient(circle at 40% 40%, #ffeb99, #e6c300);
+            border-radius: 50%;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: inset 0 2px 3px rgba(255, 255, 255, 0.8), inset 0 -2px 3px rgba(0, 0, 0, 0.3);
+            z-index: 1;
+        }
+        
+        .handle-grip {
+            position: absolute;
+            width: 90px;
+            height: 16px;
+            background: linear-gradient(to bottom, #ffeb99, #e6c300);
+            border-radius: 8px;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%) rotate(45deg);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+            z-index: 2;
+        }
+        
+        .handle-grip::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.4);
+            top: 3px;
+            left: 0;
+            border-radius: 1px;
+        }
+        
+        .handle-grip::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 1px;
+            background: rgba(0, 0, 0, 0.2);
+            bottom: 3px;
+            left: 0;
+        }
+        
+        .handle-texture {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 2px,
+                rgba(0, 0, 0, 0.05) 2px,
+                rgba(0, 0, 0, 0.05) 4px
+            );
+            border-radius: 7px;
+        }
+        
+        .handle-reflection {
+            position: absolute;
+            width: 80%;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.7);
+            top: 2px;
+            left: 10%;
+            border-radius: 2px;
+        }
+        
+        /* Gear mechanism behind handle */
+        .gear {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background-color: #888;
+            border-radius: 50%;
+            right: 30px; /* Adjusted to match handle position */
+            bottom: 80px;
+            z-index: 0;
+            transform-origin: center;
+            display: none; /* Hidden by default, shown during animation */
+        }
+        
+        /* Coin slot moved 3cm (30px) to the left and 10cm (100px) upward */
+        .coin-slot {
+            position: absolute;
+            left: 30px; /* Moved 30px to the left from previous position (60px) */
+            bottom: 125px; /* Moved 100px upward from previous position (25px) */
+            width: 60px;
+            height: 12px;
+            background-color: #333;
+            border-radius: 3px;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .coin-slot::after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 2px;
+            background-color: #222;
+            left: 5px;
+            top: 5px;
+        }
+        
+        .capsule {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            transform-style: preserve-3d;
+            transition: all 0.5s;
+            will-change: transform, opacity;
+        }
+        
+        .capsule-top {
+            width: 50px;
+            height: 25px;
+            border-radius: 25px 25px 0 0;
+            background-color: rgba(255, 255, 255, 0.7);
+            position: relative;
+            overflow: hidden;
+            z-index: 2;
+        }
+        
+        .capsule-top::after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 10px;
+            background-color: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            top: 5px;
+            left: 5px;
+            transform: rotate(-20deg);
+        }
+        
+        .capsule-bottom {
+            width: 50px;
+            height: 25px;
+            border-radius: 0 0 25px 25px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .capsule-seam {
+            width: 50px;
+            height: 2px;
+            background-color: rgba(0, 0, 0, 0.2);
+            position: absolute;
+            top: 24px;
+            z-index: 3;
+        }
+        
+        .capsule-content {
+            position: absolute;
+            width: 30px;
+            height: 15px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 3px;
+            top: 17px;
+            left: 10px;
+            z-index: 1;
+            transform: rotate(-10deg);
+            opacity: 0.7;
+        }
+        
+        /* Falling capsule - positioned at the outlet hole */
+        .falling-capsule {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: none;
+            z-index: 30;
+            transform-style: preserve-3d;
+            will-change: transform;
+            top: 0;
+            left: 45px; /* Centered in the outlet hole */
+        }
+        
+        /* Capsule in tray */
+        .tray-capsule {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: none;
+            z-index: 31;
+            transform-style: preserve-3d;
+            will-change: transform;
+            bottom: 5px;
+            left: 45px;
+        }
+        
+        .draw-button {
+            margin-top: 20px;
+            padding: 15px 40px;
+            background-color: #ffeb99;
+            color: #4c5358;
+            font-weight: bold;
+            font-size: 22px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            box-shadow: 0 4px 0 #e6c300, 0 6px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.2s;
+            position: relative;
+            z-index: 20;
+            margin-bottom: 15px; /* Added margin to create space for disclaimer below */
+        }
+        
+        .draw-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 0 #e6c300, 0 8px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .draw-button:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 0 #e6c300, 0 4px 5px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Disabled button style */
+        .draw-button:disabled {
+            background-color: #cccccc;
+            color: #777777;
+            box-shadow: 0 4px 0 #aaaaaa, 0 6px 10px rgba(0, 0, 0, 0.1);
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .draw-button:disabled:hover {
+            transform: none;
+            box-shadow: 0 4px 0 #aaaaaa, 0 6px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Result summary display below the button - Updated background color to #eceef1 */
+        .result-summary {
+            margin-top: 20px;
+            padding: 15px 25px;
+            background-color: #eceef1;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+            max-width: 90%;
+            z-index: 10;
+            position: relative;
+        }
+        
+        .result-summary.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .summary-capsule {
+            width: 40px;
+            height: 40px;
+            margin-right: 15px;
+            position: relative;
+        }
+        
+        .summary-content {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .summary-text {
+            font-size: 18px;
+            color: #4c5358;
+            display: flex;
+            flex-direction: column; /* Changed to column to put prize on next line */
+            align-items: center; /* Center the text and prize */
+        }
+        
+        .summary-prize {
+            font-weight: bold;
+            margin-top: 5px; /* Added margin to separate from text above */
+            text-align: center; /* Center the prize text */
+        }
+        
+        .summary-code-label {
+            margin-top: 8px;
+            font-size: 16px;
+        }
+        
+        .summary-code {
+            font-family: monospace;
+            background-color: #f5f5f5;
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin-left: 5px;
+            user-select: all; /* Makes the code selectable */
+        }
+        
+        .summary-button {
+            padding: 10px 20px;
+            background-color: #ff3333;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 14px;
+            transition: all 0.2s;
+            margin-top: 5px;
+        }
+        
+        .summary-button:hover {
+            background-color: #cc0000;
+        }
+        
+        .result-popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+        }
+        
+        .result-content {
+            width: 340px;
+            background-color: #eceef1;
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+            transform: scale(0.8);
+            transition: all 0.3s;
+            overflow: hidden;
+        }
+        
+        .result-close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #999;
+        }
+        
+        .result-capsule {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            position: relative;
+            overflow: visible;
+        }
+        
+        .result-prize {
+            font-size: 28px;
+            font-weight: bold;
+            margin: 20px 0;
+            color: #ff3333;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        
+        .copy-button {
+            padding: 12px 25px;
+            background-color: #0084D4;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 16px;
+            transition: all 0.2s;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        
+        .copy-button:hover {
+            background-color: #006bb0;
+        }
+        
+        .disclaimer {
+            margin-top: 0; /* Removed top margin since it's now below the button */
+            margin-bottom: 20px; /* Added bottom margin */
+            font-size: 15pt; /* Updated to 15pt as requested */
+            font-weight: bold; /* Added bold as requested */
+            color: #4c5358;
+            position: relative;
+            z-index: 5;
+            text-align: center; /* Center the text */
+        }
+        
+        /* Style specifically for the clickable "活動辦法" text */
+        .rules-link {
+            text-decoration: underline;
+            cursor: pointer;
+            color: #4c5358;
+            transition: color 0.2s;
+        }
+        
+        .rules-link:hover {
+            color: #0084D4;
+        }
+        
+        .show-popup {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .show-popup .result-content {
+            transform: scale(1);
+        }
+        
+        /* Rules popup specific styles */
+        .rules-popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+        }
+        
+        .rules-content {
+            width: 90%;
+            max-width: 500px;
+            max-height: 80vh;
+            background-color: #eceef1;
+            border-radius: 20px;
+            padding: 30px;
+            position: relative;
+            transform: scale(0.8);
+            transition: all 0.3s;
+            overflow-y: auto;
+        }
+        
+        .rules-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #0084D4; /* Changed to blue as requested */
+            text-align: center;
+        }
+        
+        .rules-text {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #000000; /* Changed to black as requested */
+            margin-bottom: 15px;
+        }
+        
+        .rules-section {
+            margin-bottom: 20px;
+        }
+        
+        .rules-section-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #000000; /* Keeping section titles black as requested */
+        }
+        
+        .rules-list {
+            padding-left: 20px;
+            margin-bottom: 15px;
+            color: #000000; /* Changed to black as requested */
+        }
+        
+        .rules-list li {
+            margin-bottom: 8px;
+        }
+        
+        .show-rules {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .show-rules .rules-content {
+            transform: scale(1);
+        }
+        
+        /* Enhanced animation keyframes */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Enhanced handle spin animation with 540 degree rotation */
+        @keyframes spinHandle {
+            0% { transform: rotate(0deg); }
+            20% { transform: rotate(180deg); }
+            40% { transform: rotate(360deg); }
+            60% { transform: rotate(450deg); }
+            80% { transform: rotate(520deg); }
+            90% { transform: rotate(535deg); }
+            95% { transform: rotate(530deg); }
+            100% { transform: rotate(540deg); }
+        }
+        
+        /* Handle vibration during rotation */
+        @keyframes handleVibration {
+            0%, 100% { transform: translate(-50%, -50%) rotate(45deg); }
+            25% { transform: translate(-51%, -49%) rotate(46deg); }
+            50% { transform: translate(-49%, -51%) rotate(44deg); }
+            75% { transform: translate(-51%, -51%) rotate(45deg); }
+        }
+        
+        /* Gear rotation animation */
+        @keyframes gearRotation {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(-720deg); }
+        }
+        
+        /* Machine shake animation */
+        @keyframes machineShake {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            10% { transform: translate(-2px, 0) rotate(-0.5deg); }
+            20% { transform: translate(2px, -1px) rotate(0.5deg); }
+            30% { transform: translate(-2px, 1px) rotate(-0.5deg); }
+            40% { transform: translate(2px, 0) rotate(0.5deg); }
+            50% { transform: translate(-2px, -1px) rotate(-0.5deg); }
+            60% { transform: translate(2px, 1px) rotate(0.5deg); }
+            70% { transform: translate(-2px, 0) rotate(-0.5deg); }
+            80% { transform: translate(2px, -1px) rotate(0.5deg); }
+            90% { transform: translate(-2px, 1px) rotate(-0.5deg); }
+        }
+        
+        /* Enhanced capsule rotation without glow effect */
+        @keyframes capsuleRotate {
+            0% { 
+                transform: rotate(0deg) scale(1); 
+                filter: blur(0px);
+            }
+            10% { 
+                transform: rotate(72deg) scale(1.02); 
+                filter: blur(1px);
+            }
+            25% { 
+                transform: rotate(180deg) scale(1.05); 
+                filter: blur(2px);
+            }
+            40% { 
+                transform: rotate(288deg) scale(1.08); 
+                filter: blur(2px);
+            }
+            50% { 
+                transform: rotate(360deg) scale(1.1); 
+                filter: blur(2px);
+            }
+            60% { 
+                transform: rotate(432deg) scale(1.08); 
+                filter: blur(2px);
+            }
+            75% { 
+                transform: rotate(540deg) scale(1.05); 
+                filter: blur(1px);
+            }
+            90% { 
+                transform: rotate(648deg) scale(1.02); 
+                filter: blur(1px);
+            }
+            100% { 
+                transform: rotate(720deg) scale(1); 
+                filter: blur(0px);
+            }
+        }
+        
+        /* Capsule drop animation - from outlet hole to tray */
+        @keyframes capsuleDrop {
+            0% { 
+                transform: translateY(0) rotate(0deg); 
+                opacity: 1;
+            }
+            100% { 
+                transform: translateY(40px) rotate(360deg); 
+                opacity: 1;
+            }
+        }
+        
+        /* Capsule landing in tray animation */
+        @keyframes capsuleLand {
+            0% { 
+                transform: translateY(0) rotate(0deg) scale(1); 
+            }
+            20% { 
+                transform: translateY(-5px) rotate(20deg) scale(1); 
+            }
+            40% { 
+                transform: translateY(0) rotate(40deg) scale(1); 
+            }
+            60% { 
+                transform: translateY(-3px) rotate(20deg) scale(1); 
+            }
+            80% { 
+                transform: translateY(0) rotate(10deg) scale(1); 
+            }
+            100% { 
+                transform: translateY(0) rotate(0deg) scale(1); 
+            }
+        }
+        
+        /* Capsule popup animation */
+        @keyframes capsulePopup {
+            0% { transform: scale(0.5) translateY(20px); opacity: 0; }
+            40% { transform: scale(1.1) translateY(-5px); opacity: 1; }
+            70% { transform: scale(0.9) translateY(3px); opacity: 1; }
+            100% { transform: scale(1) translateY(0); opacity: 1; }
+        }
+        
+        /* Capsule opening animation */
+        @keyframes open {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(-20px) rotate(15deg); }
+        }
+        
+        /* Fade in animation */
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Confetti animation */
+        @keyframes confetti {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100px) rotate(360deg); opacity: 0; }
+        }
+        
+        /* Flash animation */
+        @keyframes flash {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 0.7; }
+        }
+        
+        /* Reflection strip animation */
+        @keyframes reflectionMove {
+            0% { transform: translateY(0) rotate(-5deg); opacity: 0; }
+            10% { transform: translateY(0) rotate(-5deg); opacity: 0.8; }
+            90% { transform: translateY(200px) rotate(-5deg); opacity: 0.8; }
+            100% { transform: translateY(200px) rotate(-5deg); opacity: 0; }
+        }
+        
+        /* Background flash animation */
+        @keyframes backgroundFlash {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 0.3; }
+        }
+        
+        /* Animation classes */
+        .capsule-rotating {
+            animation: capsuleRotate 2.5s ease-out;
+        }
+        
+        .handle-vibrating {
+            animation: handleVibration 0.1s linear infinite;
+        }
+        
+        .gear-rotating {
+            animation: gearRotation 2.5s linear;
+            display: block;
+        }
+        
+        .machine-shaking {
+            animation: machineShake 0.5s ease-in-out;
+        }
+        
+        .reflection-moving {
+            animation: reflectionMove 2.5s linear;
+            opacity: 1;
+        }
+        
+        .capsule-dropping {
+            animation: capsuleDrop 0.8s ease-in forwards;
+            display: block;
+        }
+        
+        .capsule-landing {
+            animation: capsuleLand 0.5s ease-out;
+            display: block;
+        }
+        
+        .capsule-popup {
+            animation: capsulePopup 1s ease-out forwards;
+        }
+        
+        .capsule-opening .capsule-top {
+            animation: open 0.5s forwards;
+        }
+        
+        .prize-reveal {
+            animation: fadeIn 0.8s forwards;
+        }
+        
+        .button-reveal {
+            animation: fadeIn 0.8s 0.3s forwards;
+        }
+        
+        .background-flashing {
+            animation: backgroundFlash 0.5s ease-in-out 3;
+        }
+        
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #ffcc00;
+            animation: confetti 2s ease-out forwards;
+        }
+        
+        .flash-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: white;
+            z-index: 90;
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        .flash {
+            animation: flash 0.3s ease-out;
+        }
+        
+        .coupon-code {
+            display: inline-block;
+            padding: 5px 10px;
+            background-color: #f5f5f5;
+            border: 1px dashed #ccc;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 18px;
+            margin: 5px 0 15px;
+            opacity: 0;
+            transform: translateY(20px);
+            color: #4c5358;
+        }
+        
+        .coupon-reveal {
+            animation: fadeIn 0.8s 0.2s forwards;
+        }
+        
+        .activity-button {
+            padding: 10px 20px;
+            background-color: #ff3333;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 14px;
+            margin-top: 15px;
+            transition: all 0.2s;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        
+        .activity-button:hover {
+            background-color: #cc0000;
+        }
+        
+        .activity-reveal {
+            animation: fadeIn 0.8s 0.4s forwards;
+        }
+        
+        /* Prize color coding */
+        .prize-30 { color: #0084D4; }
+        .prize-50 { color: #ff3333; }
+        .prize-80 { color: #ff9900; }
+        .prize-120 { color: #9933cc; }
+        .prize-180 { color: #cc0000; }
+        
+        /* Screenshot reminder text */
+        .screenshot-reminder {
+            font-size: 14px;
+            color: #666;
+            margin-top: 5px;
+            font-style: italic;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        
+        .reminder-reveal {
+            animation: fadeIn 0.8s 0.3s forwards;
+        }
+        
+        /* Toast notification for copy success */
+        .toast-notification {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 4px;
+            font-weight: bold;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            opacity: 0;
+            transition: transform 0.3s, opacity 0.3s;
+        }
+        
+        .toast-show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+        
+        @media (max-width: 640px) {
+            .content-wrapper {
+                padding-top: 20px;
+            }
+            
+            .machine {
+                width: 300px;
+                height: 440px;
+                margin-top: 10px;
+            }
+            
+            .machine-display {
+                width: 250px;
+                left: 25px;
+                height: 200px;
+                top: 90px;
+            }
+            
+            .title-text {
+                font-size: 30pt;
+                margin-bottom: 40px;
+                margin-top: 30px; /* Adjusted for mobile */
+                padding: 15px 0; /* Adjusted padding for mobile */
+            }
+            
+            .brand-logo {
+                width: 120px;
+                height: 120px;
+                font-size: 18px;
+                top: -30px;
+            }
+            
+            .draw-button {
+                padding: 12px 30px;
+                font-size: 18px;
+            }
+            
+            .handle {
+                width: 70px;
+                height: 70px;
+                right: 5px; /* Adjusted for mobile */
+                bottom: 50px;
+            }
+            
+            .handle-grip {
+                width: 80px;
+            }
+            
+            .coin-slot {
+                left: 25px; /* Adjusted for mobile */
+                bottom: 105px; /* Adjusted for mobile */
+            }
+            
+            .outlet-assembly {
+                width: 120px;
+            }
+            
+            .outlet {
+                width: 100px;
+                left: 10px;
+            }
+            
+            .collection-tray {
+                width: 120px;
+            }
+            
+            .tray-bottom {
+                width: 100px;
+                left: 10px;
+            }
+            
+            .gear {
+                right: 20px; /* Adjusted for mobile */
+            }
+            
+            .rules-content {
+                padding: 20px;
+                width: 85%;
+            }
+            
+            .result-summary {
+                padding: 12px 20px;
+                text-align: center;
+            }
+            
+            .summary-content {
+                flex-direction: column;
+                margin-bottom: 10px;
+            }
+            
+            .summary-capsule {
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+            
+            .summary-text {
+                font-size: 16px;
+            }
+            
+            .disclaimer {
+                font-size: 14pt; /* Slightly smaller on mobile */
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background elements container -->
+    <div class="background-container" id="background-container"></div>
+    
+    <!-- Flash overlay for transition effects -->
+    <div class="flash-overlay" id="flash-overlay"></div>
+    
+    <!-- Toast notification for copy success -->
+    <div class="toast-notification" id="toast-notification">活動字串已複製！</div>
+    
+    <!-- Content wrapper for better spacing -->
+    <div class="content-wrapper">
+        <!-- Title - Updated with new color and spacing -->
+        <h1 class="title-text text-center px-4">Simplism簡單保養<br>老闆生日慶限定扭蛋活動</h1>
+        
+        <!-- Capsule Machine -->
+        <div class="machine" id="machine">
+            <div class="machine-top">
+                <div class="brand-logo">Simplism<br>簡單保養</div>
+            </div>
+            
+            <div class="machine-display">
+                <div class="capsule-container" id="capsule-container"></div>
+                <div class="glass-reflection"></div>
+                <div class="reflection-strip" id="reflection-strip"></div>
+            </div>
+            
+            <div class="machine-bottom">
+                <!-- Updated outlet with collection tray -->
+                <div class="outlet-assembly">
+                    <div class="outlet">
+                        <div class="outlet-hole" id="outlet-hole">
+                            <!-- Falling capsule positioned inside the outlet hole -->
+                            <div class="falling-capsule" id="falling-capsule"></div>
+                        </div>
+                    </div>
+                    <div class="collection-tray">
+                        <div class="tray-bottom"></div>
+                        <!-- Capsule that appears in the tray -->
+                        <div class="tray-capsule" id="tray-capsule"></div>
+                    </div>
+                </div>
+                
+                <!-- Coin slot moved 3cm to the left and 10cm upward -->
+                <div class="coin-slot"></div>
+                
+                <!-- Gear mechanism -->
+                <div class="gear" id="gear"></div>
+                
+                <!-- Redesigned handle moved 1.5cm more to the right -->
+                <div class="handle" id="handle">
+                    <div class="handle-base"></div>
+                    <div class="handle-grip" id="handle-grip">
+                        <div class="handle-texture"></div>
+                        <div class="handle-reflection"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Draw Button -->
+        <button class="draw-button" id="draw-button">開始扭蛋</button>
+        
+        <!-- Disclaimer - Moved below the button -->
+        <p class="disclaimer">
+            進入本模組表示同意<span class="rules-link" id="rules-link">活動辦法</span>
+        </p>
+        
+        <!-- Result Summary - Will be shown after closing the popup -->
+        <div class="result-summary" id="result-summary">
+            <div class="summary-content">
+                <div class="summary-capsule" id="summary-capsule"></div>
+                <div class="summary-text">
+                    您已抽過獎！您的獎品是：
+                    <span class="summary-prize" id="summary-prize"></span>
+                    <div class="summary-code-label">您的活動字串：<span class="summary-code" id="summary-code"></span></div>
+                </div>
+            </div>
+            <!-- Added button below the summary text -->
+            <button class="summary-button" id="summary-button">馬上使用活動字串</button>
+        </div>
+    </div>
+    
+    <!-- Result Popup - Updated text elements as requested -->
+    <div class="result-popup" id="result-popup">
+        <div class="result-content">
+            <div class="result-close" id="result-close">&times;</div>
+            <div class="result-capsule" id="result-capsule"></div>
+            <h2 class="text-xl mb-2" style="color: #4c5358;">恭喜您抽中</h2>
+            <div class="result-prize" id="result-prize"></div>
+            <div style="color: #4c5358;" class="mb-2">活動字串 ( 截圖保存以免忘記！ )</div>
+            <div class="coupon-code" id="coupon-code"></div>
+            <!-- Removed separate screenshot reminder since it's now part of the label -->
+            <button class="copy-button" id="copy-button">點我複製活動字串</button>
+            <button class="activity-button" id="activity-button">馬上使用活動字串去購物！</button>
+        </div>
+    </div>
+    
+    <!-- Rules Popup - Updated with blue main title and black text for content -->
+    <div class="rules-popup" id="rules-popup">
+        <div class="rules-content">
+            <div class="result-close" id="rules-close">&times;</div>
+            <h2 class="rules-title">🎮 活動辦法 🎮</h2>
+            
+            <p class="rules-text">
+                Simplism簡單保養老闆生日慶限定扭蛋活動（下稱本活動），由「Simplism簡單保養」（下稱主辦方）舉辦，本活動參與方式及本活動字串（下稱活動字串）使用說明及規範如下，若您參與本活動，即視同同意遵守以下規範：
+            </p>
+            
+            <div class="rules-section">
+                <h3 class="rules-section-title">一、活動說明：</h3>
+                <ul class="rules-list">
+                    <li>活動期間：114年8月1日 (五) 11:00 至 114年8月11日 (一) 23:59 止。</li>
+                    <li>結帳金額滿2800元送15ML傳明酸精華*1 (數量有限送完為止)。</li>
+                </ul>
+            </div>
+            
+            <div class="rules-section">
+                <h3 class="rules-section-title">二、活動字串使用規範：</h3>
+                <ol class="rules-list">
+                    <li>參與者透過網頁連結即可參與扭蛋遊戲，扭蛋有機會抽中主辦方官網賣場之活動字串。</li>
+                    <li>活動字串僅適用於主辦方官方賣場，使用期限自即日起至114年8月11日 (一) 23:59 為止，逾期無效。</li>
+                    <li>至主辦方官網賣場使用活動字串時，官網全商品不限金額皆可使用，並應於結帳時輸入活動字串，始享有優惠折扣；單一官方帳號僅限使用一次優惠。</li>
+                    <li>結帳時購物金、抵用券、活動字串只能擇一使用。</li>
+                    <li>活動字串一經使用立即失效，如辦理退貨退款金額以該筆交易實際付款金額為準，活動字串券亦不退還或補發。</li>
+                </ol>
+            </div>
+            
+            <div class="rules-section">
+                <h3 class="rules-section-title">三、運費說明：</h3>
+                <ul class="rules-list">
+                    <li>台灣本島及離島：單筆訂單滿 NT$1,000 享免運優惠；未滿 NT$1,000，運費一律 NT$100。</li>
+                    <li>國外地區：一律採用中華郵政寄送，運費依各國別與包裹重量計算，將於購物車結帳頁面顯示訂單總金額與運費。</li>
+                    <li>※ 國外訂購之匯率僅供參考，實際付款金額以新台幣為準。</li>
+                    <li>如有更多購物相關問題，請參閱常見問題頁面。</li>
+                </ul>
+            </div>
+            
+            <div class="rules-section">
+                <h3 class="rules-section-title">四、其他注意事項：</h3>
+                <ol class="rules-list">
+                    <li>若參與者以不正當或非法手段獲取活動字串券，主辦方有權取消其兌換資格。</li>
+                    <li>主辦方得隨時調整變更活動辦法及優惠內容，並具有本活動辦法最終解釋之權利，本活動最新異動，以主辦方官網 https://www.simplism.com.tw/ 公告為準。如有任何疑問，請撥打主辦方客服服務專線：04-25121008</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Create background elements
+        function createBackgroundElements() {
+            const container = document.getElementById('background-container');
+            
+            // Create stars
+            createBackgroundItems(container, 'star', 15);
+            
+            // Create bubbles
+            createBubbles(container, 12);
+            
+            // Create sparkles
+            createSparkles(container, 18);
+            
+            // Create rays
+            createRays(container, 8);
+        }
+        
+        // Create background items (stars)
+        function createBackgroundItems(container, className, count) {
+            for (let i = 0; i < count; i++) {
+                const item = document.createElement('div');
+                item.classList.add(className);
+                
+                // Random size between 10px and 20px
+                const size = Math.floor(Math.random() * 10) + 10;
+                item.style.width = `${size}px`;
+                item.style.height = `${size}px`;
+                
+                // Position avoiding center area
+                let left, top;
+                do {
+                    left = Math.floor(Math.random() * 100);
+                    top = Math.floor(Math.random() * 100);
+                } while (isInCenterArea(left, top));
+                
+                item.style.left = `${left}%`;
+                item.style.top = `${top}%`;
+                
+                // Random animation delay
+                const delay = Math.random() * 3;
+                item.style.animationDelay = `${delay}s`;
+                
+                container.appendChild(item);
+            }
+        }
+        
+        // Create bubbles
+        function createBubbles(container, count) {
+            for (let i = 0; i < count; i++) {
+                const bubble = document.createElement('div');
+                bubble.classList.add('bubble');
+                
+                // Random size between 15px and 40px
+                const size = Math.floor(Math.random() * 25) + 15;
+                bubble.style.width = `${size}px`;
+                bubble.style.height = `${size}px`;
+                
+                // Position avoiding center area
+                let left, top;
+                do {
+                    left = Math.floor(Math.random() * 100);
+                    top = Math.floor(Math.random() * 100);
+                } while (isInCenterArea(left, top));
+                
+                bubble.style.left = `${left}%`;
+                bubble.style.top = `${top}%`;
+                
+                // Random animation delay
+                const delay = Math.random() * 5;
+                bubble.style.animationDelay = `${delay}s`;
+                
+                // Random opacity
+                bubble.style.opacity = (Math.random() * 0.4 + 0.2).toString();
+                
+                container.appendChild(bubble);
+            }
+        }
+        
+        // Create sparkles
+        function createSparkles(container, count) {
+            for (let i = 0; i < count; i++) {
+                const sparkle = document.createElement('div');
+                sparkle.classList.add('sparkle');
+                
+                // Random size between 4px and 10px
+                const size = Math.floor(Math.random() * 6) + 4;
+                sparkle.style.width = `${size}px`;
+                sparkle.style.height = `${size}px`;
+                
+                // Position avoiding center area
+                let left, top;
+                do {
+                    left = Math.floor(Math.random() * 100);
+                    top = Math.floor(Math.random() * 100);
+                } while (isInCenterArea(left, top));
+                
+                sparkle.style.left = `${left}%`;
+                sparkle.style.top = `${top}%`;
+                
+                // Random animation delay
+                const delay = Math.random() * 4;
+                sparkle.style.animationDelay = `${delay}s`;
+                
+                container.appendChild(sparkle);
+            }
+        }
+        
+        // Create rays
+        function createRays(container, count) {
+            // Create a ray origin point at each corner
+            const origins = [
+                { x: 5, y: 5 },        // Top-left
+                { x: 95, y: 5 },       // Top-right
+                { x: 5, y: 95 },       // Bottom-left
+                { x: 95, y: 95 }       // Bottom-right
+            ];
+            
+            origins.forEach(origin => {
+                for (let i = 0; i < count / 4; i++) {
+                    const ray = document.createElement('div');
+                    ray.classList.add('ray');
+                    
+                    // Position at origin
+                    ray.style.left = `${origin.x}%`;
+                    ray.style.top = `${origin.y}%`;
+                    
+                    // Random length between 30px and 80px
+                    const length = Math.floor(Math.random() * 50) + 30;
+                    ray.style.height = `${length}px`;
+                    
+                    // Random rotation
+                    const rotation = Math.floor(Math.random() * 360);
+                    ray.style.transform = `rotate(${rotation}deg)`;
+                    
+                    // Random animation delay
+                    const delay = Math.random() * 5;
+                    ray.style.animationDelay = `${delay}s`;
+                    
+                    // Random opacity
+                    ray.style.opacity = (Math.random() * 0.5 + 0.2).toString();
+                    
+                    container.appendChild(ray);
+                }
+            });
+        }
+        
+        // Check if position is in center area (to avoid placing elements behind the machine)
+        function isInCenterArea(left, top) {
+            // Define center area (30% to 70% horizontally, 20% to 80% vertically)
+            return (left > 30 && left < 70 && top > 20 && top < 80);
+        }
+        
+        // Create capsules in the machine
+        function createCapsules() {
+            const container = document.getElementById('capsule-container');
+            const capsuleCount = 20;
+            const colors = ['#99ccff', '#ffcc99', '#ff9999', '#99ff99', '#e6b3ff'];
+            
+            for (let i = 0; i < capsuleCount; i++) {
+                const capsule = document.createElement('div');
+                capsule.classList.add('capsule');
+                capsule.setAttribute('id', `capsule-${i}`);
+                
+                // Random position within container
+                const left = Math.floor(Math.random() * 230);
+                const top = Math.floor(Math.random() * 180);
+                capsule.style.left = `${left}px`;
+                capsule.style.top = `${top}px`;
+                
+                // Random color from the colors array
+                const colorIndex = Math.floor(Math.random() * colors.length);
+                const color = colors[colorIndex];
+                
+                // Create capsule parts
+                const capsuleTop = document.createElement('div');
+                capsuleTop.classList.add('capsule-top');
+                
+                const capsuleBottom = document.createElement('div');
+                capsuleBottom.classList.add('capsule-bottom');
+                capsuleBottom.style.backgroundColor = color;
+                
+                const capsuleSeam = document.createElement('div');
+                capsuleSeam.classList.add('capsule-seam');
+                
+                const capsuleContent = document.createElement('div');
+                capsuleContent.classList.add('capsule-content');
+                
+                // Append parts to capsule
+                capsule.appendChild(capsuleTop);
+                capsule.appendChild(capsuleBottom);
+                capsule.appendChild(capsuleSeam);
+                capsule.appendChild(capsuleContent);
+                
+                // Add to container
+                container.appendChild(capsule);
+            }
+        }
+        
+        // Create a single capsule for the result or falling animation
+        function createSingleCapsule(container, color, scale = 1) {
+            container.innerHTML = '';
+            
+            const capsule = document.createElement('div');
+            capsule.classList.add('capsule');
+            capsule.style.position = 'relative';
+            capsule.style.margin = '0 auto';
+            capsule.style.transform = `scale(${scale})`;
+            
+            // Create capsule parts
+            const capsuleTop = document.createElement('div');
+            capsuleTop.classList.add('capsule-top');
+            
+            const capsuleBottom = document.createElement('div');
+            capsuleBottom.classList.add('capsule-bottom');
+            capsuleBottom.style.backgroundColor = color;
+            
+            const capsuleSeam = document.createElement('div');
+            capsuleSeam.classList.add('capsule-seam');
+            
+            const capsuleContent = document.createElement('div');
+            capsuleContent.classList.add('capsule-content');
+            
+            // Append parts to capsule
+            capsule.appendChild(capsuleTop);
+            capsule.appendChild(capsuleBottom);
+            capsule.appendChild(capsuleSeam);
+            capsule.appendChild(capsuleContent);
+            
+            // Add to container
+            container.appendChild(capsule);
+            
+            return capsule;
+        }
+        
+        // Create confetti effect
+        function createConfetti(container, count) {
+            const colors = ['#ff9999', '#99ccff', '#ffcc99', '#ffff99', '#99ff99', '#e6b3ff', '#ffcc00', '#ff3333'];
+            
+            for (let i = 0; i < count; i++) {
+                const confetti = document.createElement('div');
+                confetti.classList.add('confetti');
+                
+                // Random size
+                const size = Math.floor(Math.random() * 8) + 5;
+                confetti.style.width = `${size}px`;
+                confetti.style.height = `${size}px`;
+                
+                // Random position
+                const left = Math.floor(Math.random() * 100);
+                const top = Math.floor(Math.random() * 100);
+                confetti.style.left = `${left}%`;
+                confetti.style.top = `${top}%`;
+                
+                // Random color
+                const colorIndex = Math.floor(Math.random() * colors.length);
+                confetti.style.backgroundColor = colors[colorIndex];
+                
+                // Random shape
+                const shapes = ['circle', 'square', 'triangle'];
+                const shapeIndex = Math.floor(Math.random() * shapes.length);
+                if (shapes[shapeIndex] === 'circle') {
+                    confetti.style.borderRadius = '50%';
+                } else if (shapes[shapeIndex] === 'triangle') {
+                    confetti.style.width = '0';
+                    confetti.style.height = '0';
+                    confetti.style.backgroundColor = 'transparent';
+                    confetti.style.borderLeft = `${size/2}px solid transparent`;
+                    confetti.style.borderRight = `${size/2}px solid transparent`;
+                    confetti.style.borderBottom = `${size}px solid ${colors[colorIndex]}`;
+                }
+                
+                // Random animation delay
+                const delay = Math.random() * 0.5;
+                confetti.style.animationDelay = `${delay}s`;
+                
+                // Random animation duration
+                const duration = Math.random() * 1 + 1.5;
+                confetti.style.animationDuration = `${duration}s`;
+                
+                container.appendChild(confetti);
+                
+                // Remove confetti after animation completes
+                setTimeout(() => {
+                    confetti.remove();
+                }, duration * 1000);
+            }
+        }
+        
+        // Flash effect for transitions
+        function flashEffect() {
+            const flashOverlay = document.getElementById('flash-overlay');
+            flashOverlay.classList.add('flash');
+            
+            setTimeout(() => {
+                flashOverlay.classList.remove('flash');
+            }, 300);
+        }
+        
+        // Show toast notification
+        function showToast(message) {
+            const toast = document.getElementById('toast-notification');
+            toast.textContent = message;
+            toast.classList.add('toast-show');
+            
+            setTimeout(() => {
+                toast.classList.remove('toast-show');
+            }, 2000);
+        }
+        
+        // Enhanced draw animation sequence
+        function handleDraw() {
+            const drawButton = document.getElementById('draw-button');
+            const handle = document.getElementById('handle');
+            const handleGrip = document.getElementById('handle-grip');
+            const gear = document.getElementById('gear');
+            const machine = document.getElementById('machine');
+            const reflectionStrip = document.getElementById('reflection-strip');
+            const backgroundContainer = document.getElementById('background-container');
+            
+            // Disable button and handle during animation
+            drawButton.disabled = true;
+            handle.style.pointerEvents = 'none';
+            
+            // Step 1: Animate handle rotation with vibration
+            handle.style.animation = 'spinHandle 2.5s ease-out';
+            handleGrip.classList.add('handle-vibrating');
+            
+            // Step 2: Show and animate gear
+            gear.classList.add('gear-rotating');
+            
+            // Step 3: Start capsule rotation animation with motion blur
+            animateCapsuleRotation();
+            
+            // Step 4: Animate reflection strip
+            reflectionStrip.classList.add('reflection-moving');
+            
+            // Step 5: Add background flashing effect
+            backgroundContainer.classList.add('background-flashing');
+            
+            // After rotation completes
+            setTimeout(() => {
+                // Reset animations
+                handle.style.animation = '';
+                handleGrip.classList.remove('handle-vibrating');
+                gear.classList.remove('gear-rotating');
+                reflectionStrip.classList.remove('reflection-moving');
+                backgroundContainer.classList.remove('background-flashing');
+                
+                // Step 6: Flash transition effect
+                flashEffect();
+                
+                // Step 7: Animate capsule dropping from outlet hole to tray
+                setTimeout(() => {
+                    animateCapsuleDrop();
+                    
+                    // Step 8: Shake machine when capsule drops
+                    setTimeout(() => {
+                        machine.classList.add('machine-shaking');
+                        
+                        setTimeout(() => {
+                            machine.classList.remove('machine-shaking');
+                            
+                            // Step 9: Show result popup after capsule animation completes
+                            setTimeout(() => {
+                                showResultPopup();
+                            }, 1500);
+                        }, 500);
+                    }, 800);
+                }, 300);
+            }, 2500);
+        }
+        
+        // Enhanced capsule rotation animation (without glow)
+        function animateCapsuleRotation() {
+            const container = document.getElementById('capsule-container');
+            const capsules = container.querySelectorAll('.capsule');
+            
+            // Add rotation animation to all capsules with motion blur
+            capsules.forEach(capsule => {
+                capsule.classList.add('capsule-rotating');
+            });
+            
+            // Remove animation class after it completes
+            setTimeout(() => {
+                capsules.forEach(capsule => {
+                    capsule.classList.remove('capsule-rotating');
+                });
+            }, 2500);
+        }
+        
+        // Capsule drop animation - from outlet hole to tray
+        function animateCapsuleDrop() {
+            // Select a random capsule to drop
+            const container = document.getElementById('capsule-container');
+            const capsules = container.querySelectorAll('.capsule');
+            const randomIndex = Math.floor(Math.random() * capsules.length);
+            const selectedCapsule = capsules[randomIndex];
+            
+            // Get the color of the selected capsule
+            const capsuleBottom = selectedCapsule.querySelector('.capsule-bottom');
+            const capsuleColor = window.getComputedStyle(capsuleBottom).backgroundColor;
+            
+            // Hide the selected capsule
+            selectedCapsule.style.opacity = '0';
+            
+            // Create a falling capsule positioned at the outlet hole
+            const fallingCapsuleContainer = document.getElementById('falling-capsule');
+            
+            // Create the capsule element
+            createSingleCapsule(fallingCapsuleContainer, capsuleColor);
+            
+            // Start the dropping animation
+            fallingCapsuleContainer.classList.add('capsule-dropping');
+            fallingCapsuleContainer.style.display = 'block';
+            
+            // After dropping animation completes, show the capsule in the tray
+            setTimeout(() => {
+                // Hide the falling capsule
+                fallingCapsuleContainer.style.display = 'none';
+                fallingCapsuleContainer.classList.remove('capsule-dropping');
+                
+                // Show the capsule in the tray with landing animation
+                const trayCapsuleContainer = document.getElementById('tray-capsule');
+                createSingleCapsule(trayCapsuleContainer, capsuleColor);
+                trayCapsuleContainer.style.display = 'block';
+                trayCapsuleContainer.classList.add('capsule-landing');
+                
+                // Store the capsule color for the result popup
+                window.lastCapsuleColor = capsuleColor;
+                
+                // Reset the tray capsule animation after it completes
+                setTimeout(() => {
+                    trayCapsuleContainer.classList.remove('capsule-landing');
+                }, 500);
+            }, 800);
+        }
+        
+        // Show the result popup with animated sequence
+        function showResultPopup() {
+            const resultPopup = document.getElementById('result-popup');
+            const resultPrize = document.getElementById('result-prize');
+            const couponCode = document.getElementById('coupon-code');
+            const copyButton = document.getElementById('copy-button');
+            const activityButton = document.getElementById('activity-button');
+            
+            // Prize data with updated probabilities
+            const prizes = [
+                { text: '現折30元', code: 'T30', probability: 15, class: 'prize-30' },
+                { text: '現折50元', code: 'F50', probability: 30, class: 'prize-50' },
+                { text: '現折80元', code: 'E80', probability: 30, class: 'prize-80' },
+                { text: '現折120元', code: 'O120', probability: 20, class: 'prize-120' },
+                { text: '現折180元', code: 'Z180', probability: 5, class: 'prize-180' }
+            ];
+            
+            // Select prize based on probability
+            const prize = selectPrizeByProbability(prizes);
+            
+            // Set prize text and coupon code
+            resultPrize.textContent = prize.text;
+            resultPrize.className = 'result-prize ' + prize.class;
+            couponCode.textContent = prize.code;
+            
+            // Store the prize data for later use
+            window.currentPrize = {
+                text: prize.text,
+                code: prize.code,
+                class: prize.class
+            };
+            
+            // Get the color of the capsule that was dropped
+            const capsuleColor = window.lastCapsuleColor || '#ff9999';
+            
+            // Create result capsule container
+            const resultCapsuleContainer = document.getElementById('result-capsule');
+            resultCapsuleContainer.innerHTML = '';
+            
+            // Create the capsule with opacity 0
+            const capsule = document.createElement('div');
+            capsule.classList.add('capsule');
+            capsule.style.position = 'relative';
+            capsule.style.margin = '0 auto';
+            capsule.style.transform = 'scale(1.2)';
+            capsule.style.opacity = '0';
+            
+            // Create capsule parts
+            const capsuleTop = document.createElement('div');
+            capsuleTop.classList.add('capsule-top');
+            
+            const capsuleBottom = document.createElement('div');
+            capsuleBottom.classList.add('capsule-bottom');
+            capsuleBottom.style.backgroundColor = capsuleColor;
+            
+            const capsuleSeam = document.createElement('div');
+            capsuleSeam.classList.add('capsule-seam');
+            
+            const capsuleContent = document.createElement('div');
+            capsuleContent.classList.add('capsule-content');
+            
+            // Append parts to capsule
+            capsule.appendChild(capsuleTop);
+            capsule.appendChild(capsuleBottom);
+            capsule.appendChild(capsuleSeam);
+            capsule.appendChild(capsuleContent);
+            
+            // Add to container
+            resultCapsuleContainer.appendChild(capsule);
+            
+            // Show popup
+            resultPopup.classList.add('show-popup');
+            
+            // Animate capsule appearing
+            setTimeout(() => {
+                capsule.classList.add('capsule-popup');
+                
+                // Animate capsule opening after a short delay
+                setTimeout(() => {
+                    capsule.classList.add('capsule-opening');
+                    
+                    // Create confetti effect
+                    createConfetti(resultPopup, 50);
+                    
+                    // Animate prize reveal with sequential animations
+                    setTimeout(() => {
+                        resultPrize.classList.add('prize-reveal');
+                        couponCode.classList.add('coupon-reveal');
+                        copyButton.classList.add('button-reveal');
+                        activityButton.classList.add('activity-reveal');
+                    }, 500);
+                }, 1000);
+            }, 300);
+        }
+        
+        // Show the rules popup
+        function showRulesPopup() {
+            const rulesPopup = document.getElementById('rules-popup');
+            rulesPopup.classList.add('show-rules');
+        }
+        
+        // Close the rules popup
+        function closeRulesPopup() {
+            const rulesPopup = document.getElementById('rules-popup');
+            rulesPopup.classList.remove('show-rules');
+        }
+        
+        // Select prize based on probability
+        function selectPrizeByProbability(prizes) {
+            // Calculate total probability
+            const totalProbability = prizes.reduce((sum, prize) => sum + prize.probability, 0);
+            
+            // Generate random number between 0 and total probability
+            const random = Math.random() * totalProbability;
+            
+            // Find the prize based on the random number
+            let cumulativeProbability = 0;
+            for (const prize of prizes) {
+                cumulativeProbability += prize.probability;
+                if (random < cumulativeProbability) {
+                    return prize;
+                }
+            }
+            
+            // Fallback to the first prize (should never happen)
+            return prizes[0];
+        }
+        
+        // Copy coupon code to clipboard
+        function copyCouponCode() {
+            const couponCode = window.currentPrize?.code || document.getElementById('coupon-code').textContent;
+            
+            // Use the Clipboard API to copy the text
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(couponCode)
+                    .then(() => {
+                        // Show success toast notification
+                        showToast('活動字串已複製！');
+                    })
+                    .catch(err => {
+                        console.error('Failed to copy: ', err);
+                        // Fallback method
+                        fallbackCopyTextToClipboard(couponCode);
+                    });
+            } else {
+                // Fallback for browsers that don't support the Clipboard API
+                fallbackCopyTextToClipboard(couponCode);
+            }
+        }
+        
+        // Fallback copy method using a temporary textarea element
+        function fallbackCopyTextToClipboard(text) {
+            const textArea = document.createElement('textarea');
+            textArea.value = text;
+            
+            // Make the textarea out of viewport
+            textArea.style.position = 'fixed';
+            textArea.style.left = '-999999px';
+            textArea.style.top = '-999999px';
+            document.body.appendChild(textArea);
+            
+            // Select and copy
+            textArea.focus();
+            textArea.select();
+            
+            let successful = false;
+            try {
+                successful = document.execCommand('copy');
+            } catch (err) {
+                console.error('Fallback: Oops, unable to copy', err);
+            }
+            
+            document.body.removeChild(textArea);
+            
+            if (successful) {
+                // Show success toast notification
+                showToast('活動字串已複製！');
+            }
+        }
+        
+        // Close the result popup and update UI to show the user has already drawn
+        function closeResultPopup() {
+            const resultPopup = document.getElementById('result-popup');
+            resultPopup.classList.remove('show-popup');
+            
+            // Reset animation classes for next time
+            document.getElementById('result-prize').classList.remove('prize-reveal');
+            document.getElementById('coupon-code').classList.remove('coupon-reveal');
+            document.getElementById('copy-button').classList.remove('button-reveal');
+            document.getElementById('activity-button').classList.remove('button-reveal');
+            
+            // Update the draw button to show "您已抽過獎" and disable it
+            const drawButton = document.getElementById('draw-button');
+            drawButton.textContent = '您已抽過獎';
+            drawButton.disabled = true;
+            
+            // Disable the handle as well
+            document.getElementById('handle').style.pointerEvents = 'none';
+            
+            // Show the result summary below the button
+            showResultSummary();
+        }
+        
+        // Show the result summary below the button
+        function showResultSummary() {
+            if (!window.currentPrize) return;
+            
+            const summaryContainer = document.getElementById('result-summary');
+            const summaryCapsule = document.getElementById('summary-capsule');
+            const summaryPrize = document.getElementById('summary-prize');
+            const summaryCode = document.getElementById('summary-code');
+            
+            // Create a capsule in the summary
+            createSingleCapsule(summaryCapsule, window.lastCapsuleColor || '#ff9999', 0.8);
+            
+            // Set the prize text and class
+            summaryPrize.textContent = window.currentPrize.text;
+            summaryPrize.className = 'summary-prize ' + window.currentPrize.class;
+            
+            // Set the coupon code
+            summaryCode.textContent = window.currentPrize.code;
+            
+            // Show the summary with animation
+            setTimeout(() => {
+                summaryContainer.classList.add('show');
+            }, 300);
+        }
+        
+        // Reset capsules in the machine
+        function resetCapsules() {
+            const container = document.getElementById('capsule-container');
+            container.innerHTML = '';
+            createCapsules();
+        }
+        
+        // Go to activity page - Updated to redirect to the correct URL
+        function goToActivityPage() {
+            // Redirect to the specific product page with the correct URL
+            window.open("https://www.simplism.com.tw/products/product/", "_blank");
+        }
+        
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', () => {
+            createBackgroundElements();
+            createCapsules();
+            
+            // Add event listeners
+            document.getElementById('draw-button').addEventListener('click', handleDraw);
+            document.getElementById('copy-button').addEventListener('click', copyCouponCode);
+            document.getElementById('result-close').addEventListener('click', closeResultPopup);
+            document.getElementById('handle').addEventListener('click', handleDraw);
+            document.getElementById('activity-button').addEventListener('click', goToActivityPage);
+            document.getElementById('summary-button').addEventListener('click', goToActivityPage);
+            
+            // Add event listeners for rules popup - UPDATED to only use the rules-link span
+            document.getElementById('rules-link').addEventListener('click', showRulesPopup);
+            document.getElementById('rules-close').addEventListener('click', closeRulesPopup);
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'967369fd16ddf251',t:'MTc1Mzg2MzM4OC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
